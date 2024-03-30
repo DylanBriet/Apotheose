@@ -1,9 +1,11 @@
-require("dotenv/config");
+import 'dotenv/config';
+import { Sequelize } from 'sequelize';
 
-const { Client } = require("pg");
+const sequelize = new Sequelize(process.env.PG_URL, {
+  define: {
+    underscored: true,
+  },
+  logging: false,
+});
 
-const client = new Client(process.env.PG_URL);
-
-client.connect();
-
-module.exports = client;
+export default sequelize;

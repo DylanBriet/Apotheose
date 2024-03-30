@@ -1,5 +1,5 @@
 
-import { User, Character, Stat, Class, Skill, Spell, Inventory, Status, Note, Game } from './models';
+import { User, Character, Stat, Class, Skill, Spell, Inventory, Status, Note, Game, CharPossessesInventory } from './models';
 import sequelize from './client.js';
 
 
@@ -14,8 +14,9 @@ Character.belongsToMany(Stat, { through: 'char_has_stat', foreignKey: 'char_id',
 Character.belongsToMany(Class, { through: 'char_is_class', foreignKey: 'char_id', otherKey: 'class_id', as: 'classes' });
 Character.belongsToMany(Skill, { through: 'char_knows_skill', foreignKey: 'char_id', otherKey: 'skill_id', as: 'skills' });
 Character.belongsToMany(Spell, { through: 'char_masters_spell', foreignKey: 'char_id', otherKey: 'spell_id', as: 'spells' });
-Character.belongsToMany(Inventory, { through: 'char_possesses_inventory', foreignKey: 'char_id', otherKey: 'inventory_id', as: 'inventories' });
 
+Character.belongsToMany(Inventory, { through: CharPossessesInventory, as: 'inventories' });
+Inventory.belongsToMany(Character, { through: CharPossessesInventory });
 
 Game.belongsTo(Status, { foreignKey: 'status_id', as: 'status' });
 Game.belongsTo(Note, { foreignKey: 'note_id', as: 'note' });
@@ -35,4 +36,5 @@ export {
   Status,
   Note,
   Game,
+  CharPossessesInventory,
 };
