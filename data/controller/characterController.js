@@ -17,16 +17,6 @@ const characterControllerGenerique = generateController(Character, characterSche
 
 const characterController = {
     ...characterControllerGenerique,
-  
-    clone: async (req, res) => {
-        const { id } = req.params;
-        try {
-            const clonedCharacter = await characterController.cloneCharacter(id); 
-            res.json(clonedCharacter);
-        } catch (error) {
-            res.status(500).send({ message: error.message || 'Internal Server Error' });
-        }
-    },
     
       cloneCharacter: async (characterId) => {
         try {
@@ -47,6 +37,16 @@ const characterController = {
           throw error;
         }
       },
+
+      clone: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const clonedCharacter = await characterController.cloneCharacter(id); 
+            res.json(clonedCharacter);
+        } catch (error) {
+            res.status(500).send({ message: error.message || 'Internal Server Error' });
+        }
+    },
 
     async addSkillToCharacter(req, res) {
       const { characterId, skillId } = req.params;

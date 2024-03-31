@@ -12,6 +12,9 @@ User.init({
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  refreshToken: {
+    type: DataTypes.STRING,
+  }
 }, {
   sequelize,
   modelName: 'User', 
